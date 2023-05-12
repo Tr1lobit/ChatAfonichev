@@ -22,6 +22,7 @@ namespace ChatAfonichev
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static HttpClient httpClient = new HttpClient();
         public MainWindow()
         {
             HttpClient httpClient = new HttpClient();
@@ -34,10 +35,11 @@ namespace ChatAfonichev
 
         }
 
-        private void EnterBtnClick(object sender, RoutedEventArgs e)
+        private async void EnterBtnClick(object sender, RoutedEventArgs e)
         {
             var content = new Data { username = LoginTb.Text, password = PassTb.Text };
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
+            HttpResponseMessage message = await httpClient.PostAsync("",);
 
             //if((bool)RememberCheck.IsChecked)
             //{
