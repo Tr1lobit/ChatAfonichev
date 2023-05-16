@@ -37,9 +37,18 @@ namespace ChatAfonichev
 
         private async void EnterBtnClick(object sender, RoutedEventArgs e)
         {
-            var content = new Data { username = LoginTb.Text, password = PassTb.Text };
+            var content = new Data { login = LoginTb.Text, password = PassTb.Text };
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(content), Encoding.UTF8, "application/json");
-            HttpResponseMessage message = await httpClient.PostAsync("",);
+            HttpResponseMessage message = await httpClient.PostAsync("http://localhost:50512/Api/login", httpContent);
+
+            if (message.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Вы успещно вошли!");
+            }
+            else
+            {
+                MessageBox.Show("ERROR!");
+            }
 
             //if((bool)RememberCheck.IsChecked)
             //{
@@ -81,7 +90,7 @@ namespace ChatAfonichev
 
         public class Data
         {
-            public string username { get; set; }
+            public string login { get; set; }
             public string password { get; set; }
         }
     }
